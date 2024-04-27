@@ -8,17 +8,22 @@ from pathlib import Path
 # TODO 1) Read the filename and return a string containing the contents.
 # Assume the file exists.
 def reading_file(filename):
-    return None
+    with open(filename, "r") as file:
+        return str(file.read())
 
 # TODO 2) Write the specified text to the given filename. If the file doesn't
 #  exist the function should create it.
 def write_file(filename, text):
-    return None
+    with open(filename, "w") as file:
+        file.write(text)
 
 # TODO 3) Return True if the filename exists at the given directory and return
 #  False otherwise
 def file_exists(directory_from_cwd, filename):
-    return None
+    file = Path.joinpath(Path.cwd(), directory_from_cwd, filename)
+    file = Path(file)
+    exists = file.is_file()
+    return exists
 
 
 # ======================= DO NOT EDIT THE CODE BELOW =========================
