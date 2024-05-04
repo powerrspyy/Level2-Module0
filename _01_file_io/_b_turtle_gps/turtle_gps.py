@@ -50,14 +50,30 @@ if __name__ == '__main__':
     # ====================== DO NOT EDIT THE CODE ABOVE ===========================
 
     # TODO 1) Create a Turtle object using turtle.Turtle()
-
+    turtle.Turtle()
     # TODO 2) Move the turtle to start of the maze using move_turtle_to_start()
-
+    move_turtle_to_start(turtle)
     # TODO 3) Open the 'turtle_gps.txt' for reading
+    with open("turtle_gps.txt","r") as file:
+        turt_lines = file.readlines()
+    turtle_directions = list()
+    for line in turt_lines:
+        turtle_directions.append(str(line))
 
         # TODO 4) Read each line and move your turtle according to the direction
         #  and distance specified. For example if a line contains:
         #  FORWARD 50
+    for instruction in turtle_directions:
+        direction, amt = instruction.split()
+        print("direction:", direction, "amount:", amt)
+        if direction.lower() == "forward":
+            turtle.forward(int(amt))
+        elif direction.lower() == "right":
+            turtle.right(int(amt))
+        elif direction.lower() == "left":
+            turtle.left(int(amt))
+        else:
+            print("Invalid direction specified.")
         #  Your turtle should move forward 50 pixels, my_turtle.forwards(50)
         #
         #  Examples of the other directions are:

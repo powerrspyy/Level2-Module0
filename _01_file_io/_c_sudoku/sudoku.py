@@ -21,9 +21,18 @@ from tkinter import messagebox
 #      '002609500',
 #      '800203009',
 #      '005010300]
-def open_sudoku_file(sudoku_grids_file):
-    return None
 
+def open_sudoku_file(sudoku_grids_file):
+    with open(sudoku_grids_file, "r") as file:
+        sudoku_grid_num = random.randint(1,50)
+        start_num = ((sudoku_grid_num-1) * 10) + 1
+        print(start_num)
+        lines = file.readlines()
+        sudoku_grid = list()
+        for i in range(9):
+            sudoku_grid.append(lines[start_num + i].strip("\n"))
+        print(sudoku_grid)
+    return sudoku_grid
 # TODO 2) Complete the function below with the following requirements:
 #  1. Give the save_file input variable a default string
 #  2. Open the save_file input variable for writing.
@@ -42,7 +51,16 @@ def open_sudoku_file(sudoku_grids_file):
 #       005010300
 #  *NOTE: DON'T forget the new line ('\n') at the end!
 def on_save_button(sudoku_grid_list, save_file='saved.txt'):
-    return None
+    new_grid = list()
+    for item in sudoku_grid_list:
+        new_grid.append(f"{item}\n")
+    with open(save_file, "w") as file:
+        for line in new_grid:
+            file.write(str(line))
+    with open(save_file, "r") as file:
+        print(file.read())
+    return
+
 
 # TODO 3) Complete the function below with the following requirements:
 #  1. Give the saved_file input variable a default string
@@ -51,7 +69,17 @@ def on_save_button(sudoku_grid_list, save_file='saved.txt'):
 #     each row, similar to TODO 1) open_sudoku_file()
 #  4. If the file could not be found, return None and an error message
 def on_load_button(saved_file='saved.txt'):
-    return None
+    loaded_grid = list()
+    if Path(saved_file).is_file():
+        with open(saved_file, "r") as file:
+            lines = file.readlines()
+            for line in lines:
+                loaded_grid.append(line.strip("\n"))
+        print(loaded_grid)
+        return loaded_grid
+    else:
+        return None
+
 
 class Sudoku(tk.Tk):
     sudoku_grids_file = 'sudoku_grids.txt'
